@@ -1,0 +1,75 @@
+{
+  "name": "opmigrate-vscode",
+  "displayName": "OpMigrate: Operator Migration Helper",
+  "description": "CUDA/BangC/Triton/PyTorch operator migration helper that talks to an HTTP backend.",
+  "version": "0.0.1",
+  "publisher": "guojiaming",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:opmigrate.translateSelection"
+  ],
+  "main": "./out/extension.js",
+"contributes": {
+  "commands": [
+    {
+      "command": "opmigrate.translateSelection",
+      "title": "OpMigrate: Translate Selection",
+      "category": "OpMigrate"
+    }
+  ],
+  "menus": {
+    "editor/context": [
+      {
+        "command": "opmigrate.translateSelection",
+        "when": "editorTextFocus",
+        "group": "navigation@100"
+      }
+    ]
+  },
+  "configuration": {
+    "type": "object",
+    "title": "OpMigrate Settings",
+    "properties": {
+      "opMigrate.serverUrl": {
+        "type": "string",
+        "default": "http://127.0.0.1:9000",
+        "description": "OpMigrate backend HTTP endpoint, e.g. http://127.0.0.1:9000 or http://lab-server:9000"
+      }
+    }
+  },
+  "viewsContainers": {
+    "activitybar": [
+      {
+        "id": "opmigrateViewContainer",
+        "title": "OpMigrate",
+        "icon": "resources/opmigrate.png"
+      }
+    ]
+  },
+  "views": {
+    "opmigrateViewContainer": [
+      {
+        "id": "opmigrateTasksView",
+        "name": "Tasks"
+      }
+    ]
+  }
+},
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "lint": "echo \"No lint configured\"",
+    "test": "echo \"No tests yet\""
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.0.0"
+  }
+}
